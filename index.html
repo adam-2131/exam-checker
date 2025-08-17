@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ExamTrack</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0f172a">
+  <link rel="icon" href="icons/icon-192.png" sizes="192x192">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>ExamTrack</h1>
+    <div class="actions">
+      <button id="addBtn">Add exam</button>
+      <button id="exportIcsBtn" title="Export all exams as .ics">Export .ics</button>
+      <button id="backupBtn" title="Download JSON backup">Backup</button>
+      <label class="file-btn" title="Import JSON backup">
+        Import
+        <input type="file" id="importFile" accept=".json">
+      </label>
+      <input id="q" placeholder="Search (subject/title/tags)" />
+    </div>
+  </header>
+
+  <main>
+    <section class="form hidden" id="formSection">
+      <h2 id="formTitle">Add exam</h2>
+      <form id="examForm">
+        <input type="hidden" id="examId">
+        <div class="grid">
+          <label>Title<input id="title" required maxlength="80"></label>
+          <label>Subject<input id="subject" maxlength="40"></label>
+          <label>Date<input id="date" type="date" required></label>
+          <label>Time<input id="time" type="time" required></label>
+          <label>Location<input id="location" maxlength="80"></label>
+          <label>Tags (comma)<input id="tags" placeholder="math, oral, mock"></label>
+        </div>
+        <label>Notes<textarea id="notes" rows="3" placeholder="Scope, chapters, materials..."></textarea></label>
+        <div class="row">
+          <label class="switch">
+            <input type="checkbox" id="notifyChk" checked>
+            <span class="slider"></span> Reminder
+          </label>
+          <select id="notifyLead">
+            <option value="1440">1 day before</option>
+            <option value="720">12 hours</option>
+            <option value="180">3 hours</option>
+            <option value="60" selected>1 hour</option>
+            <option value="15">15 min</option>
+          </select>
+        </div>
+        <div class="row end">
+          <button type="button" id="cancelBtn" class="ghost">Cancel</button>
+          <button type="submit">Save</button>
+        </div>
+      </form>
+    </section>
+
+    <section id="listSection">
+      <div class="filters">
+        <select id="sortBy">
+          <option value="dateAsc">Soonest</option>
+          <option value="dateDesc">Latest</option>
+          <option value="subject">Subject</option>
+          <option value="title">Title</option>
+        </select>
+        <select id="statusFilter">
+          <option value="all">All</option>
+          <option value="upcoming" selected>Upcoming</option>
+          <option value="past">Past</option>
+        </select>
+      </div>
+      <div id="empty">No exams yet. Click “Add exam”.</div>
+      <div id="cards" class="cards"></div>
+    </section>
+  </main>
+
+  <footer>
+    <span>Installable PWA • Works offline • Local only</span>
+    <a href="#" id="howToInstall">How to install</a>
+  </footer>
+
+  <dialog id="installDialog">
+    <h3>Install on your phone / desktop</h3>
+    <ol>
+      <li><strong>Mobile:</strong> open this site, tap the browser menu → “Add to Home Screen.”</li>
+      <li><strong>Desktop (Chrome/Edge):</strong> address bar → “Install app” icon.</li>
+    </ol>
+    <button id="closeInstall">Close</button>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
